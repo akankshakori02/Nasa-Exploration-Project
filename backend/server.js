@@ -11,8 +11,9 @@ app.use(express.json());
 
 // Route for fetching APOD data
 app.get('/apod', async (req, res) => {
+    const { date } = req.query;
     try {
-        const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`);
+        const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}${date?`&date=${date}`:''}`);
         res.json(response.data);
     } catch (error) {
         res.json({ error: 'Failed to fetch APOD data' })
@@ -26,20 +27,21 @@ app.get('/mars', async (req, res) => {
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error('Error fetching NEO data:', error.message);
-        res.status(500).json({ error: 'Failed to fetch NEO data' });
+        console.error('Error fetching Mars-rover data:', error.message);
+        res.status(500).json({ error: 'Failed to fetch Mars-Rover data' });
     }
 });
 
 // Route for fetching EPIC data
-app.get('/epic', async (req, res) => {
+app.get('/api/epic', async (req, res) => {
+    const { type } = req.query;
     try {
-        const url = `https://api.nasa.gov/EPIC/api/natural/images?api_key=${process.env.NASA_API_KEY}`;
+        const url = `https://api.nasa.gov/EPIC/api/${type}?api_key=${process.env.NASA_API_KEY}`;
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error('Error fetching NEO data:', error.message);
-        res.status(500).json({ error: 'Failed to fetch NEO data' });
+      console.error('Error fetching EPIC data:', error);
+      res.status(500).json({ error: 'Failed to fetch EPIC data' });
     }
 });
 

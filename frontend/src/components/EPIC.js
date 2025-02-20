@@ -1,57 +1,41 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import {
+  DropdownButton,
+  Dropdown,
+  Container,
+  Image,
+  Row,
+  Col,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const EPIC = () => {
-  const [epicData, setEpicData] = useState([]);
-  const [date, setDate] = useState("");
-  const [error, setError] = useState(null);
-
-  const fetchEPIC = async (selectedDate = "") => {
-    try {
-      const url = `http://localhost:5000/epic${
-        selectedDate ? `?date=${selectedDate}` : ""
-      }`;
-      const response = await axios.get(url);
-      setEpicData(response.data);
-      setError(null);
-    } catch (error) {
-      console.error("Error fetching EPIC data:", error);
-      setError("Failed to fetch EPIC data. Please try again later.");
-    }
-  };
-
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchEPIC(date);
-  };
+  const [epicData, setImages] = useState([]);
+  const [type, setType] = useState("natural"); 
 
   useEffect(() => {
-    fetchEPIC();
-  }, []);
+    fetch(`http://localhost:5000/api/epic?type=${type}`)
+      .then((response) => response.json())
+      .then((data) => setImages(data))
+      .catch((error) => console.error("Error fetching images:", error));
+  }, [type]);
 
   return (
-    <div className="container">
-      <h1>Earth Polychromatic Imaging Camera (EPIC)</h1>
-      <Form onSubmit={handleSubmit} className="mb-3">
-        <Form.Group controlId="epicDate">
-          <Form.Label>Select a Date (Optional)</Form.Label>
-          <Form.Control
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-            max={new Date().toISOString().split("T")[0]}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Fetch EPIC Images
-        </Button>
-      </Form>
-      {error ? <p style={{ color: "red" }}>{error}</p> : null}
+    <Container>
+      <Row>
+        <Col md="auto"><h2>Earth Polychromatic Imaging Camera (EPIC)</h2></Col>
+        <Col>
+      <DropdownButton className="mx-5 my-2" variant="dark" id="dropdown-basic-button" title={`Images: ${type.toUpperCase()}`}>
+        <Dropdown.Item onClick={() => setType("natural")}>
+          Natural
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => setType("enhanced")}>
+          Enhanced
+        </Dropdown.Item>
+      </DropdownButton>
+      </Col>
+      </Row>
+
       <div
         style={{
           display: "grid",
@@ -68,18 +52,18 @@ const EPIC = () => {
               overflow: "hidden",
             }}
           >
-            <img
-              src={`https://epic.gsfc.nasa.gov/archive/natural/${image.date
-                .split(" ")[0]
-                .replace(/-/g, "/")}/png/${image.image}.png`}
-              alt={`EPIC Image ${image.identifier}`}
+            <Image
               style={{ width: "100%", display: "block" }}
+              src={`https://epic.gsfc.nasa.gov/archive/${type}/${image.date
+                .substring(0, 10)
+                .replace(/-/g, "/")}/jpg/${image.image}.jpg`}
+              alt={`EPIC Image ${image.identifier}`}
+              fluid
             />
-            <p style={{ padding: "10px", margin: 0 }}>Date: {image.date}</p>
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 

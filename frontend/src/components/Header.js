@@ -5,9 +5,9 @@ import Navbar from "react-bootstrap/Navbar";
 import { Tooltip, OverlayTrigger, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Header = ({ toggleFacts, showFacts }) => {
+const Header = ({ toggleFacts, showFacts, userName }) => {
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar className="m-1" bg="dark" data-bs-theme="dark">
       <Container className="bg-body-tertiary">
         <Navbar.Brand as={Link} to="/apod">NASA Exploratory</Navbar.Brand>
         <Nav>
@@ -56,10 +56,11 @@ const Header = ({ toggleFacts, showFacts }) => {
       >
         {showFacts ? 'Hide Facts' : 'Show Facts'}
       </Button>
-      <Navbar.Text className="justify-content-end">
-          Signed in as:  Anonymous
-        </Navbar.Text>
       </Container>
+      <Navbar.Text className="mx-2">
+          Signed in as:  {userName || 'Anonymous'}
+        </Navbar.Text>
+      
     </Navbar>
   );
 };
