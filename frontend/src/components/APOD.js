@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Spinner, Card } from "react-bootstrap";
-import '../index.css'
+import "../index.css";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 
@@ -37,40 +37,49 @@ const APOD = () => {
 
   return (
     <div>
-      {apodData ?
-      (<div className="container">
-            <h2>Astronomy Picture of the Day</h2>
-            <Form onSubmit={handleSubmit} className="mb-3">
-        <Form.Group controlId="apodDate">
-          <Form.Label>Select a Date (Optional)</Form.Label>
-          <p>Images before 20-June-1995 are not available</p>
-          <Form.Control
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-            max={new Date().toISOString().split("T")[0]}
-            style={{width:'24%'}}
-          />
-        </Form.Group>
-        <Button className="my-1" variant="primary" type="submit">
-          Fetch APOD Images
-        </Button>
-      </Form>
-      {error ? <p style={{ color: "red" }}>{error}</p> : null}
-          <Card className="box bg-dark text-white p-md-1 ms-2" >
-          <Card.Img src={apodData.url} alt={apodData.title} thumbnail />
-          <Card.ImgOverlay>
-          <Card.Title>{apodData.title}</Card.Title>
-          </Card.ImgOverlay>
-          <Card.Text className="box bg-dark text-white m-2" style={{textAlign:'justify'}}>
-            {apodData.explanation}
+      {apodData ? (
+        <div className="container">
+          <h2>Astronomy Picture of the Day</h2>
+          <Form onSubmit={handleSubmit} className="mb-3 mx-2">
+            <Form.Group controlId="apodDate">
+              <Form.Label>Select a Date</Form.Label>
+              {/* <p>Images before 20-June-1995 are not available</p> */}
+              <Form.Control
+                type="date"
+                placeholder="dd/mm/yyyy"
+                value={date}
+                onChange={handleDateChange}
+                max={new Date().toISOString().split("T")[0]}
+                style={{ width: "24%" }}
+              />
+            </Form.Group>
+            <Button className="my-1 btn-sm" variant="dark" type="submit">
+              Fetch Images
+            </Button>
+          </Form>
+          {error ? <p style={{ color: "red" }}>{error}</p> : null}
+          <Card className="box bg-dark text-white p-md-1 ms-2">
+            <Card.Img src={apodData.url} alt={apodData.title} />
+            <Card.ImgOverlay>
+              <Card.Title>{apodData.title}</Card.Title>
+            </Card.ImgOverlay>
+            <Card.Text
+              className="box bg-dark text-white m-2"
+              style={{ textAlign: "justify" }}
+            >
+              {apodData.explanation}
             </Card.Text>
-        </Card>
-      
-        </div>) 
-        
-    : (
-        <Spinner animation="grow" style={{ position: 'absolute', top: '50%', right:'50%'}} />
+          </Card>
+        </div>
+      ) : (
+        <div className="spinner">
+          <div className="align-item">
+            <Spinner animation="grow" />
+            <h5>
+              <i>Loading...! Learn Facts about space Meanwhile!</i>
+            </h5>
+          </div>
+        </div>
       )}
     </div>
   );

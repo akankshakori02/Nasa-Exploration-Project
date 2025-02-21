@@ -6,12 +6,13 @@ import {
   Image,
   Row,
   Col,
+  Spinner,
 } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../index.css";
 
 const EPIC = () => {
-  const [epicData, setImages] = useState([]);
-  const [type, setType] = useState("natural"); 
+  const [epicData, setImages] = useState(null);
+  const [type, setType] = useState("natural");
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/epic?type=${type}`)
@@ -20,20 +21,27 @@ const EPIC = () => {
       .catch((error) => console.error("Error fetching images:", error));
   }, [type]);
 
-  return (
+  return epicData ? (
     <Container>
       <Row>
-        <Col md="auto"><h2>Earth Polychromatic Imaging Camera (EPIC)</h2></Col>
+        <Col md="auto">
+          <h2>Earth Polychromatic Imaging Camera (EPIC)</h2>
+        </Col>
         <Col>
-      <DropdownButton className="mx-5 my-2" variant="dark" id="dropdown-basic-button" title={`Images: ${type.toUpperCase()}`}>
-        <Dropdown.Item onClick={() => setType("natural")}>
-          Natural
-        </Dropdown.Item>
-        <Dropdown.Item onClick={() => setType("enhanced")}>
-          Enhanced
-        </Dropdown.Item>
-      </DropdownButton>
-      </Col>
+          <DropdownButton
+            className="mx-5 my-2"
+            variant="dark"
+            id="dropdown-basic-button"
+            title={`Images: ${type.toUpperCase()}`}
+          >
+            <Dropdown.Item onClick={() => setType("natural")}>
+              Natural
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => setType("enhanced")}>
+              Enhanced
+            </Dropdown.Item>
+          </DropdownButton>
+        </Col>
       </Row>
 
       <div
@@ -64,6 +72,15 @@ const EPIC = () => {
         ))}
       </div>
     </Container>
+  ) : (
+    <div className="spinner">
+      <div className="align-item">
+        <Spinner animation="grow" />
+        <h5>
+          <i>Loading...! Learn Facts about space Meanwhile!</i>
+        </h5>
+      </div>
+    </div>
   );
 };
 

@@ -2,4 +2,13 @@
     border-radius: 0px !important;
 }
 
+.spinner {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+}
 
+.align-item{
+    text-align: center;
+}
