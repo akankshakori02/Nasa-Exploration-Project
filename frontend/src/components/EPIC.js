@@ -3,12 +3,12 @@ import {
   DropdownButton,
   Dropdown,
   Container,
-  Image,
   Row,
   Col,
   Spinner,
 } from "react-bootstrap";
 import "../index.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const EPIC = () => {
   // State to hold EPIC data & control the type of images displayed
@@ -62,14 +62,27 @@ const EPIC = () => {
               overflow: "hidden",
             }}
           >
-            <Image
+            <LazyLoadImage
               style={{ width: "100%", display: "block" }}
               src={`https://epic.gsfc.nasa.gov/archive/${type}/${image.date
                 .substring(0, 10)
                 .replace(/-/g, "/")}/jpg/${image.image}.jpg`}
               alt={`EPIC Image ${image.identifier}`}
-              fluid
             />
+            <div style={{ padding: "10px", background: "#f8f8f8" }}>
+              <p
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  margin: "5px 0",
+                }}
+              >
+                {image.caption ? image.caption : "No caption available"}
+              </p>
+              <p style={{ fontSize: "12px", color: "#555" }}>
+                <strong>Date:</strong> {image.date}
+              </p>
+            </div>
           </div>
         ))}
       </div>

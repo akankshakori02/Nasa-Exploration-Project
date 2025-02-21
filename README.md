@@ -20,6 +20,10 @@ npm or yarn
 Create a `.env` file in the backend directory. // already set in this repo
 Add `NASA_API_KEY`=your_nasa_api_key_here. // you can set port as well
 
+# IF RUNNING CODE LOCALLY, PLEASE ENSURE TO MAKE FOLLOWING CHANGES-
+ In .frontend/.env modify -> `REACT_APP_API_URL = 'http://localhost:${serverPort}'`
+ In .backend/server.js remove cors origin specified -> `app.use(cors())`
+
 # Running the Application
 ## Start backend server
 `cd backend`
@@ -46,8 +50,8 @@ nasa-data-explorer/
 │   ├── src/                        # Source files for the React application
 │   │   ├── components/             # Reusable UI components
 │   │   │   ├── APOD.js             # Displays the Astronomy Picture of the Day
-│   │   │   ├── EPIC.js             # Shows Earth images from the EPIC camera
-│   │   │   ├── MarsRover.js        # Views Mars Rover photos with lazy loading for images
+│   │   │   ├── EPIC.js             # Shows Earth images from the EPIC camera with lazy loading for images & Lazy loading component
+│   │   │   ├── MarsRover.js        # Views Mars Rover photos with lazy loading for images & Lazy loading component
 │   │   │   ├── Header.js           # Navigation header component with links to various data endpoints
 │   │   │   ├── Footer.js           # Footer component with links to social media and other resources
 │   │   │   ├── UserName.js         # Interactive modal for user name input
@@ -60,9 +64,11 @@ nasa-data-explorer/
 │   │   ├── index.css               # Base CSS file for the project
 │   │   ├── index.test.js           # Test case for index.js
 |   |   └── App.test.js             # Test Cases for all components
+|   ├── .env                        # Set REACT_APP_API_URL, change to local host if running locally
 │   └── package.json                # Defines dependencies, scripts, etc.
 ├── backend/                        # Node.js/Express server that handles backend logic
-│   ├── server.js                   # Main server file that sets up endpoints and server configuration
+│   ├── server.js                   # Main server file, sets up endpoints and server configuration, remove cors origin specified for local run
+|   ├── .env                        # Set NASA_API_KEY for server
 │   └── package.json                # Defines backend dependencies and scripts
 └── README.md                       # Documentation of the project, setup, and usage instructions
 
@@ -81,5 +87,6 @@ Uses axios to fetch data from NASA's APIs and serves it to the frontend, abstrac
 
 # Deployment
 Live: https://nasa-exploration-project-frontend.vercel.app/
+Server Deployed: https://nasa-exploration-project-backend.onrender.com/apod    (If required)
 GitHub: https://github.com/akankshakori02/Nasa-Exploration-Project
 
