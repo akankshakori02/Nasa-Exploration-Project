@@ -6,19 +6,19 @@ import Facts from "./components/Facts";
 import EPIC from "./components/EPIC";
 import MarsRover from "./components/MarsRover";
 import Footer from "./components/Footer";
-import UsernameModal from "./components/UsernameModal";
+import UserName from "./components/UserName";
 
 const App = () => {
-  const [showFacts, setShowFacts] = useState(true);
-  const [showModal, setShowModal] = useState(false); // State for modal
-  const [userName, setUserName] = useState(""); // State for username
+  const [showFacts, setShowFacts] = useState(true);  // State to control the visibility of Facts component
+  const [showModal, setShowModal] = useState(false); // State to control the visibility of UserName component
+  const [userName, setUserName] = useState(""); // State to store current username
 
-  // To toggle Facts visibility
+  // Toggle visibility of Fact component
   const toggleFacts = () => {
     setShowFacts((prev) => !prev);
   };
 
-  // Check localStorage for username
+  // Retrieve username from localStorage on component mount- if not found show useName component.
   useEffect(() => {
     const storedUserName = localStorage.getItem("userName");
     if (!storedUserName) {
@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <>
-      <UsernameModal
+      <UserName
         showModal={showModal}
         setShowModal={setShowModal}
         setUserName={setUserName}

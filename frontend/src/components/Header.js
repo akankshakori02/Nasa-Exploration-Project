@@ -13,6 +13,7 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
           NASA Exploratory
         </Navbar.Brand>
         <Nav>
+          {/* Added tooltips to provide additional context */}
           <OverlayTrigger
             placement="bottom"
             overlay={
@@ -51,7 +52,7 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
             </Nav.Link>
           </OverlayTrigger>
         </Nav>
-
+        {/* Button to toggle the visibility of facts */}
         <Button
           onClick={toggleFacts}
           className="p-md-1 ms-2"
@@ -65,6 +66,7 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
           {showFacts ? "Hide Facts" : "Show Facts"}
         </Button>
       </Container>
+      {/* Display current username (default to "Anonymous") */}
       <Navbar.Text className="mx-2">
         Signed in as: {userName || "Anonymous"}
       </Navbar.Text>

@@ -8,6 +8,7 @@ import 'react-bootstrap/dist/react-bootstrap.min.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // Rendering App component wrapped in BrowserRouter for routing support
   <BrowserRouter>
     <App />
   </BrowserRouter>,

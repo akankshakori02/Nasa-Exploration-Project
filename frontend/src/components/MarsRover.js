@@ -9,26 +9,34 @@ import {
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../index.css";
+import { CAMERA_NAMES } from "../data/camera.types";
 
 const MarsRover = () => {
-  const [photos, setPhotos] = useState(null);
-  const [filteredPhotos, setFilteredPhotos] = useState([]);
-  const [camera, setCamera] = useState("all");
+  const [photos, setPhotos] = useState(null); // State to hold all photos
+  const [filteredPhotos, setFilteredPhotos] = useState([]); // State to hold filtered photos based on selected camera
+  const [camera, setCamera] = useState("all"); // State to control selected camera
+  const [cameras, setCameras] = useState([]); // State to store all unique camera names
+
+  // Fetch Mars Rover Photos
+  const fetchMarsPhotos = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/mars");
+      setPhotos(response.data.photos);
+      setFilteredPhotos(response.data.photos);
+
+      // Extract unique camera names from API response
+      const uniqueCameras = [
+        ...new Set(response.data.photos.map((photo) => photo.camera.name)),
+      ];
+      setCameras(uniqueCameras);
+    } catch (error) {
+      console.error("Error fetching Mars photos:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchMarsPhotos = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/mars");
-        setPhotos(response.data.photos);
-        setFilteredPhotos(response.data.photos);
-      } catch (error) {
-        console.error("Error fetching Mars photos:", error);
-      }
-    };
     fetchMarsPhotos();
-  }, []);
-
-  useEffect(() => {
+    // Update filtered photos when camera selection changes
     if (camera === "all") {
       setFilteredPhotos(photos);
     } else {
@@ -53,27 +61,16 @@ const MarsRover = () => {
         <ToggleButton variant="dark" id="tbg-btn-1" value="all">
           All
         </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-2" value="FHAZ">
-          Front Hazard Avoidance Camera
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-3" value="RHAZ">
-          Rear Hazard Avoidance Camera
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-4" value="MAST">
-          Mast Camera
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-5" value="CHEMCAM">
-          Chemistry and Camera Complex
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-6" value="MAHLI">
-          Mars Hand Lens Imager
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-7" value="MARDI">
-          Mars Descent Imager
-        </ToggleButton>
-        <ToggleButton variant="dark" id="tbg-btn-8" value="NAVCAM">
-          Navigation Camera
-        </ToggleButton>
+        {cameras.map((cameraName, index) => (
+          <ToggleButton
+            key={index}
+            variant="dark"
+            id={`tbg-btn-${index + 2}`}
+            value={cameraName}
+          >
+            {CAMERA_NAMES[cameraName] || cameraName}
+          </ToggleButton>
+        ))}
       </ToggleButtonGroup>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filteredPhotos.map((photo) => (

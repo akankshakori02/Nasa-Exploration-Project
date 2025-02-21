@@ -3,9 +3,11 @@ import { Card } from "react-bootstrap";
 
 function Footer() {
   return (
-    <Card className="mx-1 mt-2 bg-dark text-light">
+    <Card
+      className="mx-1 mt-2 bg-dark text-light"
+    >
       <Card.Body>
-        <blockquote className="blockquote mb-0">
+        <blockquote className="blockquote mb-0" style={{ fontSize: "small" }}>
           <div>
             <i>
               <p className="m-2">
@@ -19,8 +21,14 @@ function Footer() {
               </p>
               <p className="m-2">
                 Find More:
-                <a className="m-1" href="https://github.com/Akanksha-kori">
+                <a className="m-1" href="https://github.com/Akankshakori02/Nasa-Exploration-Project">
                   GitHub
+                </a>
+              </p>
+              <p className="m-2">
+                Resource & Reference:
+                <a className="m-1" href="https://api.nasa.gov/">
+                  NASA Open API
                 </a>
               </p>
             </i>

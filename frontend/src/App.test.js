@@ -3,9 +3,9 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "@testing-library/jest-dom";
-import UsernameModal from "./components/UsernameModal";
 import APOD from "./components/APOD";
 import axios from "axios";
+import UserName from "./components/UserName";
 jest.mock("axios");
 
 beforeEach(() => {
@@ -33,7 +33,7 @@ const customRender = (ui, { route = "/" } = {}) => {
 
 //APP.js test
 describe("App", () => {
-  it("renders UsernameModal when no username is stored in localStorage", () => {
+  it("renders UserName when no username is stored in localStorage", () => {
     Storage.prototype.getItem = jest.fn(() => null);
     customRender(<App />);
     expect(
@@ -41,7 +41,7 @@ describe("App", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not render UsernameModal when username is stored in localStorage", () => {
+  it("does not render UserName component when username is stored in localStorage", () => {
     Storage.prototype.getItem = jest.fn(() => "Jane Doe");
     customRender(<App />);
     expect(screen.queryByText(/Welcome to NASA Exploratory!/i)).toBeNull();
@@ -75,11 +75,11 @@ describe("App", () => {
     expect(toggleButton).toHaveTextContent("Hide Facts");
   });
 
-  //UsernameModal.js
-  describe("UsernameModal", () => {
+  //UserName.js
+  describe("UserName Component", () => {
     it("displays error message with invalid input", async () => {
       render(
-        <UsernameModal
+        <UserName
           showModal={true}
           setShowModal={() => {}}
           setUserName={() => {}}
@@ -98,7 +98,7 @@ describe("App", () => {
     it("submits with valid input", () => {
       const setUserName = jest.fn();
       render(
-        <UsernameModal
+        <UserName
           showModal={true}
           setShowModal={() => {}}
           setUserName={setUserName}

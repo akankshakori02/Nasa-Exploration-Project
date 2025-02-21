@@ -5,14 +5,17 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 
 const APOD = () => {
-  const [apodData, setApodData] = useState(null);
-  const [date, setDate] = useState("");
+  // State to hold APOD data, selected date for fetching APOD and errors during fetch if any.
+  const [apodData, setApodData] = useState(null); 
+  const [date, setDate] = useState(""); 
   const [error, setError] = useState(null);
 
+  // Handler to change date in date picker
   const handleDateChange = (e) => {
     setDate(e.target.value);
   };
 
+ // Handler to fetch data based on selected date
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchAPOD(date);
@@ -42,7 +45,7 @@ const APOD = () => {
           <h2>Astronomy Picture of the Day</h2>
           <Form onSubmit={handleSubmit} className="mb-3 mx-2">
             <Form.Group controlId="apodDate">
-              <Form.Label>Select a Date</Form.Label>
+              <Form.Label> <b>Select a Date</b></Form.Label>
               {/* <p>Images before 20-June-1995 are not available</p> */}
               <Form.Control
                 type="date"

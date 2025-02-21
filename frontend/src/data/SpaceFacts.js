@@ -1,3 +1,4 @@
+// Array to store random space facts
 export const spaceFacts = ['One million Earths could fit inside the Sun – and the Sun is considered an average-size star.',
 'For years it was believed that Earth was the only planet in our solar system with liquid water. More recently, NASA revealed its strongest evidence yet that there is intermittent running water on Mars, too!',
 'Comets are leftovers from the creation of our solar system about 4.5 billion years ago – they consist of sand, ice and carbon dioxide.',

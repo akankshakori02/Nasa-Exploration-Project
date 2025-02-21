@@ -3,13 +3,14 @@ import { Toast } from "react-bootstrap";
 import { spaceFacts } from "../data/SpaceFacts";
 
 const Facts = ({ onClose }) => {
-  const [randomFact, setRandomFact] = useState("");
+  const [randomFact, setRandomFact] = useState(""); // State to store a randomly selected fact
 
+  // Select new fact in every 10 seconds
   useEffect(() => {
     setRandomFact(spaceFacts[Math.floor(Math.random() * spaceFacts.length)]);
     const interval = setInterval(() => {
       setRandomFact(spaceFacts[Math.floor(Math.random() * spaceFacts.length)]);
-    }, 15000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 

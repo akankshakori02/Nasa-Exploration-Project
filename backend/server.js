@@ -6,11 +6,13 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Enable CORS and JSON parsing for incoming requests
 app.use(cors());
 app.use(express.json());
 
-// Route for fetching APOD data
+// Route for fetching APOD data 
 app.get('/apod', async (req, res) => {
+    // Optional parameter- Date, for fetching specific day's APOD image.
     const { date } = req.query;
     try {
         const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}${date?`&date=${date}`:''}`);
@@ -34,6 +36,7 @@ app.get('/mars', async (req, res) => {
 
 // Route for fetching EPIC data
 app.get('/api/epic', async (req, res) => {
+    // Type parameter to determine image type (natural or enhanced)
     const { type } = req.query;
     try {
         const url = `https://api.nasa.gov/EPIC/api/${type}?api_key=${process.env.NASA_API_KEY}`;
@@ -48,3 +51,4 @@ app.get('/api/epic', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
+module.exports = app;

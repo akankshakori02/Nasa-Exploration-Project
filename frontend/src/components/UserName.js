@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { validateUserInput } from "../data/customValidator";
 
-const UsernameModal = ({ showModal, setShowModal, setUserName }) => {
-  const [inputValue, setInputValue] = useState("");
+const UserName = ({ showModal, setShowModal, setUserName }) => {
+  // State to store user input value and validation error
+  const [inputValue, setInputValue] = useState(""); 
   const [error, setError] = useState("");
 
+  // User input validation on custom validation logic
   const isFormValid = validateUserInput(inputValue) && inputValue.length > 2;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormValid) {
-      localStorage.setItem("userName", inputValue);
+      // Save the valid username in localStorage and update state
+      localStorage.setItem("userName", inputValue); 
       setUserName(inputValue);
       setShowModal(false);
       setError("");
@@ -57,4 +60,4 @@ const UsernameModal = ({ showModal, setShowModal, setUserName }) => {
   );
 };
 
-export default UsernameModal;
+export default UserName;

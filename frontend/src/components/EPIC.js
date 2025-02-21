@@ -11,9 +11,11 @@ import {
 import "../index.css";
 
 const EPIC = () => {
+  // State to hold EPIC data & control the type of images displayed
   const [epicData, setImages] = useState(null);
   const [type, setType] = useState("natural");
 
+  // Fetch images on type change
   useEffect(() => {
     fetch(`http://localhost:5000/api/epic?type=${type}`)
       .then((response) => response.json())
