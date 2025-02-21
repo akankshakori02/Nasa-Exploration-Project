@@ -17,7 +17,7 @@ const EPIC = () => {
 
   // Fetch images on type change
   useEffect(() => {
-    fetch(`http://localhost:5000/api/epic?type=${type}`)
+    fetch(`https://nasa-exploration-project-backend.onrender.com/api/epic?type=${type}`)
       .then((response) => response.json())
       .then((data) => setImages(data))
       .catch((error) => console.error("Error fetching images:", error));
