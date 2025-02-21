@@ -37,7 +37,7 @@ app.get('/mars', async (req, res) => {
 // Route for fetching EPIC data
 app.get('/api/epic', async (req, res) => {
     // Type parameter to determine image type (natural or enhanced)
-    const { type } = req.query;
+    const { type = 'natural' } = req.query;
     try {
         const url = `https://api.nasa.gov/EPIC/api/${type}?api_key=${process.env.NASA_API_KEY}`;
         const response = await axios.get(url);
