@@ -78,3 +78,8 @@ Facts.js: Displays educational space facts, enhancing the informational value of
 ## backend/server.js:
 Sets up Express server routes to handle requests for NASA data.
 Uses axios to fetch data from NASA's APIs and serves it to the frontend, abstracting API logic from the client side.
+
+# Deployment
+Live: https://nasa-exploration-project-frontend.vercel.app/
+GitHub: https://github.com/akankshakori02/Nasa-Exploration-Project
+

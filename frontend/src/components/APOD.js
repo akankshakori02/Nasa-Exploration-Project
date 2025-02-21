@@ -22,8 +22,8 @@ const APOD = () => {
   };
 
   const fetchAPOD = async (selectedDate = "") => {
-    try {
-      const url = `http://localhost:5000/apod${
+    try {  
+      const url = `${process.env.REACT_APP_API_URL}/apod${
         selectedDate ? `?date=${selectedDate}` : ""
       }`;
       const response = await axios.get(url);

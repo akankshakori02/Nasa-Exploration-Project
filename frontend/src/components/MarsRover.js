@@ -20,7 +20,7 @@ const MarsRover = () => {
   // Fetch Mars Rover Photos
   const fetchMarsPhotos = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/mars");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/mars`);
       setPhotos(response.data.photos);
       setFilteredPhotos(response.data.photos);
 
