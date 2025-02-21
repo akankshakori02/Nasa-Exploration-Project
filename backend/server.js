@@ -10,6 +10,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', async (req, res) => {
+res.json({
+    "message": "Hello, use \"/apod\", \"/mars\" or \"/api/epic\" to get data"
+  })
+});
+
 // Route for fetching APOD data 
 app.get('/apod', async (req, res) => {
     // Optional parameter- Date, for fetching specific day's APOD image.
