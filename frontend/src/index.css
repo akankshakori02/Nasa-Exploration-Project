@@ -2,13 +2,64 @@
     border-radius: 0px !important;
 }
 
-.spinner {
+.center {
     display: flex; 
     justify-content: center; 
     align-items: center; 
     height: 100vh;
 }
 
-.align-item{
+.align-item {
     text-align: center;
+}
+
+.set-error {
+    color: red;
+}
+
+.img-layout {
+    width: 100%;
+}
+
+.form-width {
+    width: 24% !important;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.fact-btn {
+    border-radius : 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.custom-size {
+    width: 200px;
+    height: 200px;
+}
+
+.set-container {
+    min-height: 80vh;
+}
+
+.display-facts {
+    position: absolute;
+    top: 1rem;
+    right: 0rem;
+    opacity: 92%;
+    z-Index: 1000,
+}
+
+.epic-img {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.epic-img-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
 }

@@ -3,13 +3,13 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Tooltip, OverlayTrigger, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = ({ toggleFacts, showFacts, userName }) => {
   return (
     <Navbar className="m-1" bg="dark" data-bs-theme="dark">
       <Container className="bg-body-tertiary">
-        <Navbar.Brand as={Link} to="/apod">
+        <Navbar.Brand as={NavLink} to="/apod">
           NASA Exploratory
         </Navbar.Brand>
         <Nav>
@@ -22,7 +22,7 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
               </Tooltip>
             }
           >
-            <Nav.Link as={Link} to="/apod">
+            <Nav.Link as={NavLink} to="/apod" activeClassName="active">
               APOD
             </Nav.Link>
           </OverlayTrigger>
@@ -34,8 +34,8 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
               </Tooltip>
             }
           >
-            <Nav.Link as={Link} to="/mars-rover">
-              Mars Rover Photos{" "}
+            <Nav.Link as={NavLink} to="/mars-rover" activeClassName="active">
+              Mars Rover Photos
             </Nav.Link>
           </OverlayTrigger>
           <OverlayTrigger
@@ -47,7 +47,7 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
               </Tooltip>
             }
           >
-            <Nav.Link as={Link} to="/epic">
+            <Nav.Link as={NavLink} to="/epic" activeClassName="active">
               EPIC
             </Nav.Link>
           </OverlayTrigger>
@@ -55,13 +55,8 @@ const Header = ({ toggleFacts, showFacts, userName }) => {
         {/* Button to toggle the visibility of facts */}
         <Button
           onClick={toggleFacts}
-          className="p-md-1 ms-2"
+          className="p-md-1 ms-2 fact-btn"
           variant={showFacts ? "dark" : "secondary"}
-          style={{
-            borderRadius: "5px",
-            cursor: "pointer",
-            zIndex: 1001,
-          }}
         >
           {showFacts ? "Hide Facts" : "Show Facts"}
         </Button>

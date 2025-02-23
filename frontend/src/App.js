@@ -5,7 +5,7 @@ import APOD from "./components/APOD";
 import Facts from "./components/Facts";
 import Footer from "./components/Footer";
 import UserName from "./components/UserName";
-import { Spinner } from "react-bootstrap";
+import LoadSpinner from "./components/LoadSpinner";
 // Lazy Load Mars & EPIC
 const MarsRover = lazy(() => import("./components/MarsRover"));
 const EPIC = lazy(() => import("./components/EPIC"));
@@ -43,36 +43,17 @@ const App = () => {
         showFacts={showFacts}
         userName={userName}
       />
-      <div style={{ minHeight: "80vh" }}>
-        <Suspense
-          fallback={
-            <div className="spinner">
-              <div className="align-item">
-                <Spinner animation="grow" />
-                <h5>
-                  <i>Loading...! Learn Facts about space Meanwhile!</i>
-                </h5>
-              </div>
-            </div>
-          }
-        >
+      <div className="set-container">
+        <Suspense fallback={<LoadSpinner />}>
           <Routes>
-            <Route path="/" element={<APOD />} />
-            <Route path="/apod" element={<APOD />} />
-            <Route path="/mars-rover" element={<MarsRover />} />
-            <Route path="/epic" element={<EPIC />} />
+            <Route exact path="/" element={<APOD />} />
+            <Route exact path="/apod" element={<APOD />} />
+            <Route exact path="/mars-rover" element={<MarsRover />} />
+            <Route exact path="/epic" element={<EPIC />} />
           </Routes>
         </Suspense>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          top: "1rem",
-          right: "0rem",
-          opacity: "92%",
-          zIndex: 1000,
-        }}
-      >
+      <div className="display-facts">
         {showFacts && <Facts onClose={toggleFacts} />}
       </div>
       <Footer />
